@@ -159,7 +159,7 @@ const Product = () => {
             <div className="space-y-8">
               <div>
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-                  {product?.title || 'Premium'}{' '}
+                  {/* {product?.title || 'Premium'}{' '} */}
                   <span className="gradient-text">NFC Business Card</span>
                 </h1>
 

@@ -83,17 +83,6 @@ function CustomColorInput({
             }}
           />
         </div>
-        <Input
-          id={name || 'color-input'}
-          type="text"
-          value={hexValue}
-          onChange={handleHexChange}
-          placeholder={placeholder}
-          disabled={disabled}
-          className="flex-1 hidden"
-          pattern="^#[0-9A-Fa-f]{6}$"
-          title="Please enter a valid hex color (e.g., #ff0000)"
-        />
       </div>
       {error && <ErrorMsg error={error.message as string} />}
     </div>

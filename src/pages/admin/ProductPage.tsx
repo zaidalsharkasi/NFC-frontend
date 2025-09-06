@@ -258,7 +258,6 @@ const ProductPage = () => {
                                 label="Color"
                                 placeholder="#000000"
                                 required={true}
-                                className=""
                               />
                               <CustomInput
                                 name={`cardDesigns.${index}.colorName`}

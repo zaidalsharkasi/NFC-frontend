@@ -216,7 +216,7 @@ const OrdersPage = () => {
             >
               <Eye className="h-4 w-4" />
             </Button>
-            {/* <Button
+            <Button
               variant="outline"
               size="sm"
               onClick={() => handleEdit(order)}
@@ -224,15 +224,6 @@ const OrdersPage = () => {
               title="Edit Order"
             >
               <Edit className="h-4 w-4" />
-            </Button> */}
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => handleDelete(order)}
-              className="h-8 w-8 p-0 text-destructive hover:text-destructive"
-              title="Delete Order"
-            >
-              <Trash2 className="h-4 w-4" />
             </Button>
 
             <Button

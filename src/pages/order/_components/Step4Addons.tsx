@@ -47,8 +47,17 @@ function Step4Addons({ product }: Step4AddonsProps) {
   const addonImages = watch('addonImages') || [];
 
   const [newImage, setNewImage] = useState('');
+  const [expandedSections, setExpandedSections] = useState<string[]>([]);
 
   const addons = data?.data?.data?.data || [];
+
+  const toggleSection = (addonId: string) => {
+    setExpandedSections((prev) =>
+      prev.includes(addonId)
+        ? prev.filter((id) => id !== addonId)
+        : [...prev, addonId]
+    );
+  };
 
   const getInputTypeColor = (type: string) => {
     switch (type) {
@@ -74,61 +83,29 @@ function Step4Addons({ product }: Step4AddonsProps) {
     inputType: string = '',
     price: number = 0
   ) => {
-    if (isImage && value) {
-      setValue('addonImages', [...addonImages, value]);
-      if (inputType) {
-        setValue('addons', [
-          ...selectedAddons,
-          {
-            addon: addonId,
-            addonValue: value,
-            inputType: inputType,
-            price: price,
-          },
-        ]);
-      }
-      return;
-    }
-
     const existingIndex = selectedAddons.findIndex(
       (item: AddonSelection) => item.addon === addonId
     );
 
+    const addonData = {
+      addon: addonId,
+      addonValue: value,
+      inputType: inputType,
+      price: price,
+    };
+
+    if (isImage && value) {
+      setValue('addonImages', [...addonImages, value]);
+    }
+
     if (existingIndex >= 0) {
       // Update existing selection
       const updatedAddons = [...selectedAddons];
-      updatedAddons[existingIndex].addonValue = value;
+      updatedAddons[existingIndex] = addonData;
       setValue('addons', updatedAddons);
-      if (inputType) {
-        setValue('addons', [
-          ...selectedAddons,
-          {
-            addon: addonId,
-            addonValue: value,
-            inputType: inputType,
-            price: price,
-          },
-        ]);
-      }
     } else {
       // Add new selection
-      setValue('addons', [
-        ...selectedAddons,
-        { addon: addonId, addonValue: value, price: price },
-      ]);
-    }
-
-    // If it's an image, also save to addonImages array
-    if (inputType) {
-      setValue('addons', [
-        ...selectedAddons,
-        {
-          addon: addonId,
-          addonValue: value,
-          inputType: inputType,
-          price: price,
-        },
-      ]);
+      setValue('addons', [...selectedAddons, addonData]);
     }
   };
 
@@ -320,6 +297,33 @@ function Step4Addons({ product }: Step4AddonsProps) {
       </div>
 
       {/* Available Add-ons */}
+      {selectedAddons.length > 0 && (
+        <div className="max-w-4xl mx-auto mt-8">
+          <div className="bg-card border border-border rounded-lg p-6">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h3 className="text-lg font-semibold">Selected Add-ons</h3>
+                <p className="text-muted-foreground">
+                  {selectedAddons.length}{' '}
+                  {selectedAddons.length === 1 ? 'item' : 'items'} selected
+                </p>
+              </div>
+              <div className="text-right">
+                <p className="text-sm text-muted-foreground">Total Add-ons</p>
+                <p className="text-2xl font-bold gradient-text">
+                  {selectedAddons
+                    .reduce(
+                      (total: number, addon: any) => total + addon.price,
+                      0
+                    )
+                    .toFixed(2)}{' '}
+                  JOD
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="space-y-4 max-w-4xl mx-auto">
         {addons.map((addon: Addon) => {
           const isSelected = selectedAddons.some(
@@ -336,20 +340,16 @@ function Step4Addons({ product }: Step4AddonsProps) {
               <button
                 type="button"
                 className="w-full p-6 flex items-center justify-between hover:bg-muted/50 transition-colors"
-                onClick={() =>
-                  !isSelected &&
-                  handleAddonSelection(
-                    addon._id,
-                    '',
-                    false,
-                    addon.inputType,
-                    addon.price
-                  )
-                }
+                onClick={() => toggleSection(addon._id)}
               >
                 <div className="flex items-center gap-4">
                   <div className="text-left">
-                    <h3 className="text-xl font-semibold">{addon.title}</h3>
+                    <div className="flex gap-2 ">
+                      <h3 className="text-xl font-semibold">{addon.title}</h3>
+                      <span className="text-md font-semibold rounded-xl px-2 py-1 bg-primary text-primary-foreground">
+                        {addon.price} JOD
+                      </span>
+                    </div>
                     <p className="text-muted-foreground text-sm">
                       {addon.inputType === 'text' &&
                         'Add personalized text to the back of your card'}
@@ -361,12 +361,9 @@ function Step4Addons({ product }: Step4AddonsProps) {
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <span className="text-xl font-semibold gradient-text">
-                    +{addon.price} JOD
-                  </span>
                   <svg
                     className={`w-6 h-6 transform transition-transform ${
-                      isSelected ? 'rotate-180' : ''
+                      expandedSections.includes(addon._id) ? 'rotate-180' : ''
                     }`}
                     fill="none"
                     viewBox="0 0 24 24"
@@ -382,7 +379,7 @@ function Step4Addons({ product }: Step4AddonsProps) {
                 </div>
               </button>
 
-              {isSelected && (
+              {expandedSections.includes(addon._id) && (
                 <div className="p-6 border-t border-border bg-card/50">
                   <div className="space-y-4">
                     {renderAddonInput(addon)}
@@ -402,6 +399,35 @@ function Step4Addons({ product }: Step4AddonsProps) {
           );
         })}
       </div>
+
+      {/* Summary Section */}
+      {selectedAddons.length > 0 && (
+        <div className="max-w-4xl mx-auto mt-8">
+          <div className="bg-card border border-border rounded-lg p-6">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h3 className="text-lg font-semibold">Selected Add-ons</h3>
+                <p className="text-muted-foreground">
+                  {selectedAddons.length}{' '}
+                  {selectedAddons.length === 1 ? 'item' : 'items'} selected
+                </p>
+              </div>
+              <div className="text-right">
+                <p className="text-sm text-muted-foreground">Total Add-ons</p>
+                <p className="text-2xl font-bold gradient-text">
+                  {selectedAddons
+                    .reduce(
+                      (total: number, addon: any) => total + addon.price,
+                      0
+                    )
+                    .toFixed(2)}{' '}
+                  JOD
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

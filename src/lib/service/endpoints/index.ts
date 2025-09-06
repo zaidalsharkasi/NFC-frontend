@@ -55,7 +55,7 @@ export function PosOrder(data: any) {
   return res;
 }
 
-export function updateOrder(id: string, data: FormData) {
+export function updateOrder(id: string, data: any) {
   const res = axiosInstance.patch(`/orders/${id}`, data, {
     headers: {
       'Content-Type': 'multipart/form-data',

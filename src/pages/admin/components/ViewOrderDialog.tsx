@@ -264,98 +264,130 @@ const ViewOrderDialog = ({ isOpen, onClose, order }: ViewOrderDialogProps) => {
     </div>
   );
 
-  const renderDeliveryInfo = () => (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="space-y-4">
-          <div>
-            <label className="text-sm font-medium text-muted-foreground">
-              Country
-            </label>
-            <p className="text-base">{order.deliveryInfo?.country || 'N/A'}</p>
-          </div>
+  const renderDeliveryInfo = () => {
+    console.log('order.deliveryInfo...', order.deliveryInfo);
+    return (
+      <div className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-4">
+            {order.deliveryInfo?.country.name !== 'other' && (
+              <>
+                <div>
+                  <label className="text-sm font-medium text-muted-foreground">
+                    Country
+                  </label>
+                  <p className="text-base">
+                    {order.deliveryInfo?.country.name || 'N/A'}
+                  </p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-muted-foreground">
+                    City
+                  </label>
+                  <p className="text-base">
+                    {order.deliveryInfo?.city.name || 'N/A'}
+                  </p>
+                </div>
+              </>
+            )}
 
-          <div>
-            <label className="text-sm font-medium text-muted-foreground">
-              City
-            </label>
-            <p className="text-base">{order.deliveryInfo?.city || 'N/A'}</p>
-          </div>
+            {order.deliveryInfo?.typedCountry && (
+              <div>
+                <label className="text-sm font-medium text-muted-foreground">
+                  Typed Country
+                </label>
+                <p className="text-base">
+                  {order.deliveryInfo?.typedCountry || 'N/A'}
+                </p>
+              </div>
+            )}
+            {order.deliveryInfo?.typedCity && (
+              <div>
+                <label className="text-sm font-medium text-muted-foreground">
+                  Typed City
+                </label>
+                <p className="text-base">
+                  {order.deliveryInfo?.typedCity || 'N/A'}
+                </p>
+              </div>
+            )}
 
-          <div>
-            <label className="text-sm font-medium text-muted-foreground">
-              Address Line 1
-            </label>
-            <p className="text-base">
-              {order.deliveryInfo?.addressLine1 || 'N/A'}
-            </p>
-          </div>
-
-          {order.deliveryInfo?.addressLine2 && (
             <div>
               <label className="text-sm font-medium text-muted-foreground">
-                Address Line 2
+                Address Line 1
               </label>
-              <p className="text-base">{order.deliveryInfo.addressLine2}</p>
+              <p className="text-base">
+                {order.deliveryInfo?.addressLine1 || 'N/A'}
+              </p>
             </div>
-          )}
-          <div>
-            <label className="text-sm font-medium text-muted-foreground">
-              Postcode
-            </label>
-            <p className="text-base">{order.deliveryInfo?.postcode || 'N/A'}</p>
-          </div>
-        </div>
 
-        <div className="space-y-4">
-          <div>
-            <label className="text-sm font-medium text-muted-foreground">
-              Use Same Contact
-            </label>
-            <div className="flex items-center gap-2">
-              {order.deliveryInfo?.useSameContact ? (
-                <Badge variant="default" className="flex items-center gap-1">
-                  <Check className="w-3 h-3" />
-                  Yes
-                </Badge>
-              ) : (
-                <Badge variant="secondary">No</Badge>
-              )}
+            {order.deliveryInfo?.addressLine2 && (
+              <div>
+                <label className="text-sm font-medium text-muted-foreground">
+                  Address Line 2
+                </label>
+                <p className="text-base">{order.deliveryInfo.addressLine2}</p>
+              </div>
+            )}
+            <div>
+              <label className="text-sm font-medium text-muted-foreground">
+                Postcode
+              </label>
+              <p className="text-base">
+                {order.deliveryInfo?.postcode || 'N/A'}
+              </p>
             </div>
           </div>
 
-          {!order.deliveryInfo?.useSameContact && (
-            <>
-              <div>
-                <label className="text-sm font-medium text-muted-foreground">
-                  Delivery Phone
-                </label>
-                <div className="flex items-center gap-2">
-                  <Phone className="w-4 h-4 text-muted-foreground" />
-                  <p className="text-base">
-                    {order.deliveryInfo?.deliveryPhone || 'N/A'}
-                  </p>
-                </div>
+          <div className="space-y-4">
+            <div>
+              <label className="text-sm font-medium text-muted-foreground">
+                Use Same Contact
+              </label>
+              <div className="flex items-center gap-2">
+                {order.deliveryInfo?.useSameContact ? (
+                  <Badge variant="default" className="flex items-center gap-1">
+                    <Check className="w-3 h-3" />
+                    Yes
+                  </Badge>
+                ) : (
+                  <Badge variant="secondary">No</Badge>
+                )}
               </div>
+            </div>
 
-              <div>
-                <label className="text-sm font-medium text-muted-foreground">
-                  Delivery Email
-                </label>
-                <div className="flex items-center gap-2">
-                  <Mail className="w-4 h-4 text-muted-foreground" />
-                  <p className="text-base">
-                    {order.deliveryInfo?.deliveryEmail || 'N/A'}
-                  </p>
+            {!order.deliveryInfo?.useSameContact && (
+              <>
+                <div>
+                  <label className="text-sm font-medium text-muted-foreground">
+                    Delivery Phone
+                  </label>
+                  <div className="flex items-center gap-2">
+                    <Phone className="w-4 h-4 text-muted-foreground" />
+                    <p className="text-base">
+                      {order.deliveryInfo?.deliveryPhone || 'N/A'}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </>
-          )}
+
+                <div>
+                  <label className="text-sm font-medium text-muted-foreground">
+                    Delivery Email
+                  </label>
+                  <div className="flex items-center gap-2">
+                    <Mail className="w-4 h-4 text-muted-foreground" />
+                    <p className="text-base">
+                      {order.deliveryInfo?.deliveryEmail || 'N/A'}
+                    </p>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
-    </div>
-  );
-
+    );
+  };
   const renderPaymentMethod = () => (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -628,7 +660,13 @@ const ViewOrderDialog = ({ isOpen, onClose, order }: ViewOrderDialogProps) => {
 
       <div className="space-y-4">
         <h3 className="font-semibold">Delivery Address</h3>
-        <p className="text-base">{order.fullAddress || 'N/A'}</p>
+        <p className="text-base">{order.deliveryInfo?.addressLine1 || 'N/A'}</p>
+        {order.deliveryInfo?.addressLine2 && (
+          <p className="text-base">
+            {order.deliveryInfo?.addressLine2 || 'N/A'}
+          </p>
+        )}
+        <p className="text-base">{order.deliveryInfo?.postcode || 'N/A'}</p>
       </div>
 
       <Separator />

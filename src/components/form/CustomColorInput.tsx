@@ -13,6 +13,7 @@ interface CustomColorInputProps {
   // For standalone usage (without react-hook-form)
   value?: string;
   onChange?: (value: string) => void;
+  className?: string;
 }
 
 function CustomColorInput({
@@ -23,6 +24,7 @@ function CustomColorInput({
   disabled = false,
   value: externalValue,
   onChange: externalOnChange,
+  className,
 }: CustomColorInputProps) {
   // Always call useFormContext, but handle the case where it might not be available
   const formContext = useFormContext();
@@ -62,7 +64,7 @@ function CustomColorInput({
   };
 
   return (
-    <div className="space-y-2">
+    <div className={`space-y-2 `}>
       <Label htmlFor={name || 'color-input'}>
         {label} {required && <span className="text-red-500">*</span>}
       </Label>
@@ -88,7 +90,7 @@ function CustomColorInput({
           onChange={handleHexChange}
           placeholder={placeholder}
           disabled={disabled}
-          className="flex-1"
+          className="flex-1 hidden"
           pattern="^#[0-9A-Fa-f]{6}$"
           title="Please enter a valid hex color (e.g., #ff0000)"
         />

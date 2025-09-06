@@ -120,8 +120,7 @@ const AddonsPage = () => {
       label: 'Price',
       render: (addon: Addon) => (
         <div className="flex items-center gap-2">
-          <DollarSign className="h-4 w-4 text-green-600" />
-          <span className="font-medium">${addon.price.toFixed(2)}</span>
+          <span className="font-medium">{addon.price.toFixed(2)}</span>
         </div>
       ),
     },

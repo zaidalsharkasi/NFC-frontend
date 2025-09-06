@@ -39,7 +39,7 @@ function Step2CardDesign({ product }: { product: any }) {
                   className="w-6 h-6 rounded-full border-2 border-border"
                   style={{ backgroundColor: design.color }}
                 />
-                <div>{design.color}</div>
+                <div>{design?.colorName}</div>
               </div>
             ),
           }))}
@@ -49,7 +49,7 @@ function Step2CardDesign({ product }: { product: any }) {
       <div className="space-y-4">
         <CustomCheckbox
           name="cardDesign.includePrintedLogo"
-          label="Add Company Logo (+5 JOD for printed logo)"
+          label="Add Company Logo "
           required={false}
         />
 

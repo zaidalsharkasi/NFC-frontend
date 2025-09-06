@@ -14,6 +14,7 @@ import {
   MapPin,
   Users,
   Plus,
+  Image,
 } from 'lucide-react';
 import {
   Sidebar,
@@ -85,6 +86,7 @@ const AdminLayout = () => {
     { path: '/admin-panel/countries', icon: Globe, label: 'Countries' },
     { path: '/admin-panel/cities', icon: MapPin, label: 'Cities' },
     { path: '/admin-panel/addons', icon: Plus, label: 'Addons' },
+    { path: '/admin-panel/header-images', icon: Image, label: 'Header Images' },
     // { path: '/admin-panel/settings', icon: Settings, label: 'Settings' },
   ];
 

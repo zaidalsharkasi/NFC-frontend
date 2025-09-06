@@ -457,7 +457,7 @@ const ViewOrderDialog = ({ isOpen, onClose, order }: ViewOrderDialogProps) => {
                           {addonItem.addon?.inputType || 'N/A'}
                         </Badge>
                         <div className="flex items-center gap-1">
-                          <span className="font-semibold text-green-600">
+                          <span className="font-semibold ">
                             {addonItem.addon?.price || 0} JOD
                           </span>
                         </div>

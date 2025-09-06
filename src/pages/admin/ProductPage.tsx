@@ -40,6 +40,7 @@ const productSchema = z.object({
     .array(
       z.object({
         color: z.string().min(1, 'Color is required'),
+        colorName: z.string().min(1, 'Color name is required'),
         image: z.any().optional(),
       })
     )
@@ -57,8 +58,8 @@ const ProductPage = () => {
     price: undefined,
     isMainProduct: undefined,
     cardDesigns: [
-      { color: 'black', image: null },
-      { color: 'white', image: null },
+      { color: 'black', colorName: 'Black', image: null },
+      { color: 'white', colorName: 'White', image: null },
     ],
   };
 
@@ -112,6 +113,7 @@ const ProductPage = () => {
       // Add card designs with proper array notation
       data.cardDesigns.forEach((design, index) => {
         formData.append(`cardDesigns[${index}][color]`, design.color);
+        formData.append(`cardDesigns[${index}][colorName]`, design.colorName);
 
         // Handle image files
         if (design.image instanceof File) {
@@ -250,12 +252,22 @@ const ProductPage = () => {
                           </div>
 
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <CustomColorInput
-                              name={`cardDesigns.${index}.color`}
-                              label="Color"
-                              placeholder="#000000"
-                              required={true}
-                            />
+                            <div className="flex gap-1">
+                              <CustomColorInput
+                                name={`cardDesigns.${index}.color`}
+                                label="Color"
+                                placeholder="#000000"
+                                required={true}
+                                className=""
+                              />
+                              <CustomInput
+                                name={`cardDesigns.${index}.colorName`}
+                                label="Color Name"
+                                type="text"
+                                placeholder="#000000"
+                                required={true}
+                              />
+                            </div>
 
                             <CustomFileUpload
                               name={`cardDesigns.${index}.image`}

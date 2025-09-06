@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -73,13 +73,16 @@ const OrderModal = ({
       nameOnCard: '',
       companyLogo: null,
       includePrintedLogo: false,
-      color: 'black',
+      color: '',
+      colorName: '',
     },
     addons: [],
     addonImages: [],
     deliveryInfo: {
       country: '',
       city: '',
+      typedCountry: '',
+      typedCity: '',
       addressLine1: '',
       addressLine2: '',
       useSameContact: true,
@@ -138,6 +141,8 @@ const OrderModal = ({
       4: [
         'deliveryInfo.country',
         'deliveryInfo.city',
+        'deliveryInfo.typedCountry',
+        'deliveryInfo.typedCity',
         'deliveryInfo.addressLine1',
         'deliveryInfo.addressLine2',
         'deliveryInfo.useSameContact',
@@ -281,7 +286,14 @@ const OrderModal = ({
           'cardDesign[nameOnCard]',
           data.cardDesign.nameOnCard || ''
         );
-        formData.append('cardDesign[color]', data.cardDesign.color || 'black');
+        formData.append('cardDesign[color]', data.cardDesign.color);
+        formData.append(
+          'cardDesign[colorName]',
+
+          product.cardDesigns.find(
+            (design: any) => design.color === data.cardDesign.color
+          )?.colorName || ''
+        );
         formData.append(
           'cardDesign[includePrintedLogo]',
           (data.cardDesign.includePrintedLogo || false).toString()
@@ -322,6 +334,20 @@ const OrderModal = ({
           data.deliveryInfo.country || ''
         );
         formData.append('deliveryInfo[city]', data.deliveryInfo.city || '');
+
+        if (watch('deliveryInfo.typedCountry' as any)) {
+          formData.append(
+            'deliveryInfo[typedCountry] ',
+            watch('deliveryInfo.typedCountry' as any)
+          );
+        }
+        // console.log('data.deliveryInfo...', data.deliveryInfo);
+        if (watch('deliveryInfo.typedCity' as any)) {
+          formData.append(
+            'deliveryInfo[typedCity]',
+            watch('deliveryInfo.typedCity' as any)
+          );
+        }
         formData.append(
           'deliveryInfo[addressLine1]',
           data.deliveryInfo.addressLine1 || ''
@@ -414,6 +440,17 @@ const OrderModal = ({
       icon: ClipboardList,
     },
   ];
+
+  useEffect(() => {
+    if (product && watch('cardDesign.color')) {
+      setValue(
+        'cardDesign.colorName' as any,
+        product.cardDesigns.find(
+          (design: any) => design.color === watch('cardDesign.color')
+        )?.colorName || ''
+      );
+    }
+  }, [product, watch('cardDesign.color')]);
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>

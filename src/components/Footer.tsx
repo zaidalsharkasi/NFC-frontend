@@ -198,7 +198,7 @@ const Footer = () => {
             </div>
 
             {/* Links */}
-            <div className="flex space-x-6 text-sm text-muted-foreground">
+            <div className="flex md:flex-row flex-col space-x-6 text-sm text-muted-foreground">
               <Link
                 to="/bulk-orders"
                 className="hover:text-foreground transition-colors"

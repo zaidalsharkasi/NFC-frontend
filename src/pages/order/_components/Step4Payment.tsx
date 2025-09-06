@@ -22,19 +22,76 @@ function Step4Payment() {
           },
           {
             value: 'online',
-            label: 'Online Payment',
-            description: 'Secure online payments coming soon!',
+            label: 'Bank Transaction',
+            description: 'Secure Bank Transactions  ',
             icon: <CreditCard className="w-5 h-5 text-muted-foreground" />,
           },
         ]}
       />
       {watch('paymentMethod') === 'online' && (
-        <CustomFileUpload
-          name="despositeTransactionImg"
-          label="Deposite Transaction Image"
-          required={false}
-          preview={true}
-        />
+        <>
+          <div className="bg-card border border-border rounded-lg p-4 space-y-4">
+            <h3 className="font-semibold text-foreground">
+              Bank Transfer Information
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+              <div className="space-y-1">
+                <span className="font-medium text-muted-foreground">
+                  Bank Name:
+                </span>
+                <p className="text-foreground">Jordan Islamic Bank</p>
+              </div>
+              <div className="space-y-1">
+                <span className="font-medium text-muted-foreground">
+                  Account Holder:
+                </span>
+                <p className="text-foreground">NFC Cards Company</p>
+              </div>
+              <div className="space-y-1">
+                <span className="font-medium text-muted-foreground">
+                  Account Number:
+                </span>
+                <p className="text-foreground font-mono bg-muted px-2 py-1 rounded">
+                  1234567890123456
+                </p>
+              </div>
+              <div className="space-y-1">
+                <span className="font-medium text-muted-foreground">IBAN:</span>
+                <p className="text-foreground font-mono bg-muted px-2 py-1 rounded">
+                  JO94JISB1234567890123456
+                </p>
+              </div>
+              <div className="space-y-1">
+                <span className="font-medium text-muted-foreground">
+                  Swift Code:
+                </span>
+                <p className="text-foreground font-mono bg-muted px-2 py-1 rounded">
+                  JISBJOAM
+                </p>
+              </div>
+              <div className="space-y-1">
+                <span className="font-medium text-muted-foreground">
+                  Branch:
+                </span>
+                <p className="text-foreground">Amman Main Branch</p>
+              </div>
+            </div>
+            <div className="bg-muted/50 border border-border rounded-lg p-3">
+              <p className="text-muted-foreground text-sm">
+                <span className="font-medium text-foreground">Important:</span>{' '}
+                Please include your order number in the transfer reference.
+                Upload the transaction receipt below after completing the
+                transfer.
+              </p>
+            </div>
+          </div>
+          <CustomFileUpload
+            name="despositeTransactionImg"
+            label="Deposit Transaction Image"
+            required={false}
+            preview={true}
+          />
+        </>
       )}
 
       <div className="bg-muted p-4 rounded-lg">

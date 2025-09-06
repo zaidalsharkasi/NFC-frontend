@@ -236,101 +236,109 @@ const CountriesPage = () => {
       label: 'Actions',
       render: (country: Country) => (
         <div className="flex items-center gap-2">
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => handleEdit(country)}
-                className="h-8 w-8 p-0"
-              >
-                <Edit className="h-4 w-4" />
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Edit Country</DialogTitle>
-                <DialogDescription>
-                  Update the country information.
-                </DialogDescription>
-              </DialogHeader>
-              <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className="space-y-4"
-                >
-                  <CustomInput
-                    name="name"
-                    label="Country Name"
-                    placeholder="Jordan"
-                    required={true}
-                    type="text"
-                  />
-                  <CustomInput
-                    name="code"
-                    label="Country Code"
-                    placeholder="JO"
-                    required={true}
-                    type="text"
-                  />
-                  <CustomInput
-                    name="displayOrder"
-                    label="Display Order"
-                    placeholder="0"
-                    required={false}
-                    type="number"
-                  />
-                  <CustomSwitch
-                    name="isActive"
-                    label="Active"
-                    required={false}
-                  />
-                  <DialogFooter className="mt-6">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => setEditingItem(null)}
+          {country.name !== 'other' && (
+            <>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleEdit(country)}
+                    className="h-8 w-8 p-0"
+                  >
+                    <Edit className="h-4 w-4" />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Edit Country</DialogTitle>
+                    <DialogDescription>
+                      Update the country information.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <Form {...form}>
+                    <form
+                      onSubmit={form.handleSubmit(onSubmit)}
+                      className="space-y-4"
                     >
-                      Cancel
-                    </Button>
-                    <Button type="submit" disabled={updateMutation.isPending}>
-                      {updateMutation.isPending ? 'Updating...' : 'Update'}
-                    </Button>
-                  </DialogFooter>
-                </form>
-              </Form>
-            </DialogContent>
-          </Dialog>
+                      <CustomInput
+                        name="name"
+                        label="Country Name"
+                        placeholder="Jordan"
+                        required={true}
+                        type="text"
+                      />
+                      <CustomInput
+                        name="code"
+                        label="Country Code"
+                        placeholder="JO"
+                        required={true}
+                        type="text"
+                      />
+                      <CustomInput
+                        name="displayOrder"
+                        label="Display Order"
+                        placeholder="0"
+                        required={false}
+                        type="number"
+                      />
+                      <CustomSwitch
+                        name="isActive"
+                        label="Active"
+                        required={false}
+                      />
+                      <DialogFooter className="mt-6">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={() => setEditingItem(null)}
+                        >
+                          Cancel
+                        </Button>
+                        <Button
+                          type="submit"
+                          disabled={updateMutation.isPending}
+                        >
+                          {updateMutation.isPending ? 'Updating...' : 'Update'}
+                        </Button>
+                      </DialogFooter>
+                    </form>
+                  </Form>
+                </DialogContent>
+              </Dialog>
 
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button
-                variant="outline"
-                size="sm"
-                className="h-8 w-8 p-0 text-destructive hover:text-destructive"
-              >
-                <Trash2 className="h-4 w-4" />
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete the
-                  country "{country.name}" and all its associated cities.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction
-                  onClick={() => handleDelete(country._id)}
-                  className="bg-red-600 hover:bg-red-700"
-                >
-                  Delete
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-8 w-8 p-0 text-destructive hover:text-destructive"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone. This will permanently delete
+                      the country "{country.name}" and all its associated
+                      cities.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={() => handleDelete(country._id)}
+                      className="bg-red-600 hover:bg-red-700"
+                    >
+                      Delete
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </>
+          )}
         </div>
       ),
     },

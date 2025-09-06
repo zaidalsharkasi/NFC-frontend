@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   ArrowRight,
@@ -23,14 +23,12 @@ import { useQuery } from '@tanstack/react-query';
 import { getOneProduct } from '@/lib/service/endpoints';
 
 const Product = () => {
-  const [selectedColor, setSelectedColor] = useState('black');
+  const [selectedColor, setSelectedColor] = useState('');
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
 
   const { data, isLoading, refetch, error } = useQuery({
     queryKey: ['getOneProduct'],
     queryFn: () => getOneProduct('689f857545ca4e292e013f13'),
-    // onSuccess: (data) => {
-    //  },
   });
 
   // console.log('data', data);
@@ -56,29 +54,34 @@ const Product = () => {
   }
 
   const product = data?.data?.data?.data as Product | undefined;
-
-  const colors =
-    product?.cardDesigns?.map((design) => ({
-      id: design.color.toLowerCase(),
-      name: design.color.charAt(0).toUpperCase() + design.color.slice(1),
-      color: design.color,
-    })) || [];
-
   const cleanImagePath = (path: string) => {
     return path
       .replace(/\\/g, '/') // fix slashes
       .replace(/ /g, '%20'); // encode spaces
   };
+  const colors = useMemo(
+    () =>
+      product?.cardDesigns?.map((design) => ({
+        id: design.color.toLowerCase(),
+        name: design.color.charAt(0).toUpperCase() + design.color.slice(1),
+        color: design.color,
+      })) || [],
+    [product?.cardDesigns]
+  );
 
-  const productImages =
-    product?.cardDesigns?.reduce((acc, design) => {
-      return {
-        ...acc,
-        [design.color.toLowerCase()]: `${
-          import.meta.env.VITE_BACKEND_DOMAIN
-        }${cleanImagePath(design.image)}`,
-      };
-    }, {}) || {};
+  const productImages = useMemo(
+    () =>
+      product?.cardDesigns?.reduce((acc, design) => {
+        return {
+          ...acc,
+          [design.color.toLowerCase()]: `${
+            import.meta.env.VITE_BACKEND_DOMAIN
+          }${cleanImagePath(design.image)}`,
+        };
+      }, {}) || {},
+    [product?.cardDesigns]
+  );
+
   const features = [
     {
       icon: Shield,
@@ -99,6 +102,13 @@ const Product = () => {
   const navigateToBulkOrders = () => {
     window.location.href = '/bulk-orders';
   };
+
+  useEffect(() => {
+    if (colors.length > 0) {
+      setSelectedColor(colors[0].id);
+    }
+  }, [product]);
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -110,12 +120,14 @@ const Product = () => {
             {/* Left: Product Images */}
             <div className="space-y-6">
               <div className="aspect-square bg-card rounded-2xl p-8 flex items-center justify-center border">
-                <img
-                  src={productImages[selectedColor] || nfcCardBlack}
-                  alt={`NFC Business Card - ${selectedColor}`}
-                  className="w-full h-full object-contain rounded-xl"
-                  crossOrigin="anonymous"
-                />
+                {productImages[selectedColor] && (
+                  <img
+                    src={productImages[selectedColor]}
+                    alt={`NFC Business Card - ${selectedColor}`}
+                    className="w-full h-full object-contain rounded-xl"
+                    crossOrigin="anonymous"
+                  />
+                )}
               </div>
 
               {/* Thumbnail Gallery */}

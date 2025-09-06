@@ -14,6 +14,7 @@ import SubscribersPage from './admin/SubscribersPage';
 import CountriesPage from './admin/CountriesPage';
 import CitiesPage from './admin/CitiesPage';
 import AddonsPage from './admin/AddonsPage';
+import HeaderImagePage from './admin/HeaderImagePage';
 
 const AdminPanel = () => {
   return (
@@ -32,6 +33,7 @@ const AdminPanel = () => {
         <Route path="countries" element={<CountriesPage />} />
         <Route path="cities" element={<CitiesPage />} />
         <Route path="addons" element={<AddonsPage />} />
+        <Route path="header-images" element={<HeaderImagePage />} />
         <Route path="settings" element={<SettingsPage />} />
       </Route>
     </Routes>

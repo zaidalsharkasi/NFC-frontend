@@ -77,9 +77,8 @@ const ViewAddonDialog = ({ isOpen, onClose, addon }: ViewAddonDialogProps) => {
                     Price
                   </label>
                   <div className="flex items-center gap-2">
-                    <DollarSign className="h-4 w-4 text-green-600" />
                     <p className="text-lg font-semibold">
-                      ${addon.price.toFixed(2)}
+                      {addon.price.toFixed(2)}
                     </p>
                   </div>
                 </div>

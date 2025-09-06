@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Play } from 'lucide-react';
-import { getHome } from '@/lib/service/endpoints';
+import { getHeaderImages, getHome } from '@/lib/service/endpoints';
 import { useQuery } from '@tanstack/react-query';
 import ImageErrorBoundary from './ImageErrorBoundary';
 import SectionErrorBoundary from './SectionErrorBoundary';
@@ -44,6 +44,11 @@ const HeroSection = () => {
     //  },
   });
 
+  const { data: headerImage } = useQuery({
+    queryKey: ['getHeaderImage'],
+    queryFn: () => getHeaderImages(),
+  });
+
   const mainProduct = data?.data?.data?.products.find(
     (item) => item.isMainProduct
   );
@@ -82,7 +87,15 @@ const HeroSection = () => {
             <div className="relative slide-in-left order-1 lg:order-2">
               <div className="relative z-10">
                 <ImageErrorBoundary
-                  src={imageUrl ? imageUrl : '/placeholder.svg'}
+                  src={
+                    headerImage?.data?.data?.data?.[0]?.image
+                      ? `${import.meta.env.VITE_BACKEND_DOMAIN}${
+                          headerImage?.data?.data?.data?.[0]?.image
+                        }`
+                      : imageUrl
+                      ? imageUrl
+                      : '/placeholder.svg'
+                  }
                   alt={mainProduct?.title || 'NFC business card'}
                   className="w-full h-auto rounded-2xl shadow-2xl max-w-md mx-auto lg:max-w-full"
                   fallbackSrc="/placeholder.svg"
@@ -113,7 +126,7 @@ const HeroSection = () => {
                     animationDelay: '0.2s',
                   }}
                 >
-                  {mainProduct?.description}
+                  {headerImage?.data?.data?.data?.[0]?.description}
                 </p>
               </div>
 

@@ -126,6 +126,7 @@ const EditOrderDialog = ({ isOpen, onClose, order }: EditOrderDialogProps) => {
       2: [
         'cardDesign.nameOnCard',
         'cardDesign.color',
+        'cardDesign.colorName',
         'cardDesign.includePrintedLogo',
         'cardDesign.companyLogo',
       ],
@@ -245,7 +246,11 @@ const EditOrderDialog = ({ isOpen, onClose, order }: EditOrderDialogProps) => {
           'cardDesign[nameOnCard]',
           data.cardDesign.nameOnCard || ''
         );
-        formData.append('cardDesign[color]', data.cardDesign.color || 'black');
+        formData.append('cardDesign[color]', data.cardDesign.color);
+        formData.append(
+          'cardDesign[colorName]',
+          watch('cardDesign.colorName' as any) as any
+        );
         formData.append(
           'cardDesign[includePrintedLogo]',
           (data.cardDesign.includePrintedLogo || false).toString()

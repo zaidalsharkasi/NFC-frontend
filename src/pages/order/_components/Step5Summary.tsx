@@ -50,7 +50,7 @@ function Step5Summary({ product }: { product: any }) {
             </div>
             <div>
               <span className="text-muted-foreground">Color:</span>{' '}
-              {watch('cardDesign.color')}
+              {watch('cardDesign.colorName')}
             </div>
             <div>
               <span className="text-muted-foreground">Company Logo:</span>{' '}
@@ -103,7 +103,7 @@ function Step5Summary({ product }: { product: any }) {
         <p className="text-sm text-muted-foreground">
           {watch('paymentMethod') === 'cash'
             ? 'Cash on Delivery'
-            : 'Online Payment'}
+            : 'Bank Transaction'}
         </p>
         {watch('paymentMethod') === 'online' && (
           <div className="text-sm text-muted-foreground">

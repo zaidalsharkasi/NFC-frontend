@@ -308,69 +308,99 @@ function Step4Addons({ product }: Step4AddonsProps) {
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h2 className="text-2xl font-bold mb-2">Add-ons & Customizations</h2>
+        <h1 className="text-4xl font-bold mb-2">
+          Order Your <span className="gradient-text">NFC Card</span>
+        </h1>
+        <p className="text-muted-foreground text-lg mb-8">
+          Customize Your Order
+        </p>
         <p className="text-muted-foreground">
-          Enhance your order with additional features and customizations
+          Click on any add-on to see options and customize your NFC card
         </p>
       </div>
 
       {/* Available Add-ons */}
-      <div className="space-y-4">
-        <h3 className="text-lg font-semibold">Available Add-ons</h3>
-        <div className="grid gap-4 md:grid-cols-2">
-          {addons.map((addon: Addon) => {
-            const isSelected = selectedAddons.some(
-              (item: AddonSelection) => item.addon === addon._id
-            );
+      <div className="space-y-4 max-w-4xl mx-auto">
+        {addons.map((addon: Addon) => {
+          const isSelected = selectedAddons.some(
+            (item: AddonSelection) => item.addon === addon._id
+          );
 
-            return (
-              <Card
-                key={addon._id}
-                className={`${isSelected ? 'ring-2 ring-primary' : ''}`}
+          return (
+            <div
+              key={addon._id}
+              className={`bg-card border border-border rounded-lg transition-all duration-200 ${
+                isSelected ? 'ring-2 ring-primary shadow-glow' : ''
+              }`}
+            >
+              <button
+                type="button"
+                className="w-full p-6 flex items-center justify-between hover:bg-muted/50 transition-colors"
+                onClick={() =>
+                  !isSelected &&
+                  handleAddonSelection(
+                    addon._id,
+                    '',
+                    false,
+                    addon.inputType,
+                    addon.price
+                  )
+                }
               >
-                <CardHeader className="pb-3">
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg flex items-center gap-2">
-                      <Package className="h-5 w-5" />
-                      {addon.title}
-                    </CardTitle>
-                    <div className="flex items-center gap-2">
-                      <Badge
-                        className={`${getInputTypeColor(
-                          addon.inputType
-                        )} text-white`}
-                      >
-                        {addon.inputType.charAt(0).toUpperCase() +
-                          addon.inputType.slice(1)}
-                      </Badge>
-                      <div className="flex items-center gap-1">
-                        <span className="text-green-600 text-sm">JOD</span>
-                        <span className="font-semibold">
-                          {addon.price.toFixed(2)}
-                        </span>
-                      </div>
-                    </div>
+                <div className="flex items-center gap-4">
+                  <div className="text-left">
+                    <h3 className="text-xl font-semibold">{addon.title}</h3>
+                    <p className="text-muted-foreground text-sm">
+                      {addon.inputType === 'text' &&
+                        'Add personalized text to the back of your card'}
+                      {addon.inputType === 'image' &&
+                        'Upload an extra logo or image to be printed on your card'}
+                      {addon.inputType === 'select' &&
+                        'Choose from available options'}
+                    </p>
                   </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {renderAddonInput(addon)}
+                </div>
+                <div className="flex items-center gap-4">
+                  <span className="text-xl font-semibold gradient-text">
+                    +{addon.price} JOD
+                  </span>
+                  <svg
+                    className={`w-6 h-6 transform transition-transform ${
+                      isSelected ? 'rotate-180' : ''
+                    }`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </div>
+              </button>
 
-                  {isSelected && (
+              {isSelected && (
+                <div className="p-6 border-t border-border bg-card/50">
+                  <div className="space-y-4">
+                    {renderAddonInput(addon)}
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={() => handleRemoveAddon(addon._id)}
-                      className="w-full text-destructive hover:text-destructive"
+                      className="w-full text-destructive hover:text-destructive hover:bg-destructive/10"
                     >
                       <X className="h-4 w-4 mr-2" />
-                      Remove Addon
+                      Remove Add-on
                     </Button>
-                  )}
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

@@ -327,3 +327,32 @@ export function deleteAddon(id: string) {
   const res = axiosInstance.delete(`/addons/${id}`);
   return res;
 }
+
+// Header Image endpoints
+export function getHeaderImages() {
+  const res = axiosInstance.get('/header-image');
+  return res;
+}
+
+export function createHeaderImage(data: FormData) {
+  const res = axiosInstance.post('/header-image', data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return res;
+}
+
+export function updateHeaderImage(id: string, data: FormData) {
+  const res = axiosInstance.patch(`/header-image/${id}`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return res;
+}
+
+export function deleteHeaderImage(id: string) {
+  const res = axiosInstance.delete(`/header-image/${id}`);
+  return res;
+}

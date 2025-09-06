@@ -29,10 +29,14 @@ function Step3Delivery() {
   // Reset city when country changes
   React.useEffect(() => {
     if (selectedCountry) {
-      setValue('deliveryInfo.city', '');
+      if (selectedCountry === '68bc058dc5b3bff5997dd059') {
+        setValue('deliveryInfo.city', '68bc0690c5b3bff5997dd066');
+      } else {
+        setValue('deliveryInfo.city', '');
+      }
     }
-  }, [selectedCountry]);
-
+  }, [selectedCountry, citiesLoading]);
+  console.log('selectedCountry..,', selectedCountry);
   useEffect(() => {
     if (watch('deliveryInfo.city')) {
       setValue(
@@ -42,7 +46,7 @@ function Step3Delivery() {
       );
     }
   }, [watch('deliveryInfo.city')]);
-
+  console.log('watch ', watch());
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -75,8 +79,31 @@ function Step3Delivery() {
               ? 'Loading cities...'
               : 'Select city'
           }
-          disabled={!selectedCountry || citiesLoading}
+          disabled={
+            !selectedCountry ||
+            citiesLoading ||
+            selectedCountry === '68b29cc9c09f32fccaf4e1c6'
+          }
         />
+        {selectedCountry === '68bc058dc5b3bff5997dd059' && (
+          <>
+            <CustomInput
+              name="deliveryInfo.typedCountry"
+              label="Typed Country"
+              placeholder="enter country name"
+              required={false}
+              type="text"
+            />
+
+            <CustomInput
+              name="deliveryInfo.typedCity"
+              label="Typed City"
+              placeholder="enter city name"
+              required={false}
+              type="text"
+            />
+          </>
+        )}
       </div>
 
       <CustomInput

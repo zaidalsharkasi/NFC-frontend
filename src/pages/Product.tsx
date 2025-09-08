@@ -159,8 +159,17 @@ const Product = () => {
             <div className="space-y-8">
               <div>
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-                  {/* {product?.title || 'Premium'}{' '} */}
-                  <span className="gradient-text">NFC Business Card</span>
+                  <span className="text-white">
+                    {/* {product?.title || 'Premium'}{' '} */}
+                    {/* Linkit : Your Digital Business Card */}
+                    <div
+                      className="gradient-text"
+                      style={{ display: 'inline-block', marginRight: '8px' }}
+                    >
+                      Linkit:{'  '}
+                    </div>
+                    Your Digital Business Card
+                  </span>
                 </h1>
 
                 <div className="text-4xl font-bold text-primary mb-6">

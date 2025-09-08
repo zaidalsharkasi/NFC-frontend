@@ -116,8 +116,15 @@ const HeroSection = () => {
             <div className="space-y-6 order-2 lg:order-1">
               <div className="space-y-4">
                 <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight slide-in-right">
-                  {mainProduct?.title}{' '}
-                  <span className="gradient-text">{mainProduct?.price}JOD</span>
+                  {/* {mainProduct?.title}{' '}
+                  <span className="gradient-text">{mainProduct?.price}JOD</span> */}
+                  <div
+                    className="gradient-text"
+                    style={{ display: 'inline-block', marginRight: '8px' }}
+                  >
+                    Linkit:{'  '}
+                  </div>
+                  Your Digital Business Card
                 </h1>
 
                 <p

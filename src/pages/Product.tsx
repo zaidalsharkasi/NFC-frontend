@@ -88,11 +88,7 @@ const Product = () => {
       title: 'Premium Quality',
       description: 'Durable, waterproof design with premium materials',
     },
-    {
-      icon: Truck,
-      title: 'Free Delivery',
-      description: 'Fast and free delivery across Jordan',
-    },
+
     {
       icon: Clock,
       title: 'Ready in 5 Minutes',

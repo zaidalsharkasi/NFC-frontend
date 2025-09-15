@@ -145,7 +145,7 @@ const TermsOfService = () => {
                 <div>
                   <h3 className="font-semibold mb-2">Shipping Policy</h3>
                   <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                    <li>Free delivery within Jordan for orders above 50 JOD</li>
+                    <li>delivery within Jordan for orders above 50 JOD</li>
                     <li>International shipping available at additional cost</li>
                     <li>Tracking information provided for all shipments</li>
                     <li>Risk of loss transfers to customer upon delivery</li>

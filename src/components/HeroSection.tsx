@@ -133,7 +133,8 @@ const HeroSection = () => {
                     animationDelay: '0.2s',
                   }}
                 >
-                  {headerImage?.data?.data?.data?.[0]?.description}
+                  impress instantly. Share your details in one tap.
+                  {/* {headerImage?.data?.data?.data?.[0]?.description} */}
                 </p>
               </div>
 
@@ -170,12 +171,6 @@ const HeroSection = () => {
                   <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
                   <span className="text-sm text-muted-foreground">
                     Works on all phones
-                  </span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-                  <span className="text-sm text-muted-foreground">
-                    Free delivery
                   </span>
                 </div>
               </div>

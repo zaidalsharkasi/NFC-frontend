@@ -198,7 +198,7 @@ const BulkOrders = () => {
                       <span>12 JOD</span>
                     </div>
                     <div className="text-xs text-muted-foreground pt-2">
-                      * Prices include custom branding and free delivery
+                      * Prices include custom branding
                     </div>
                   </CardContent>
                 </Card>

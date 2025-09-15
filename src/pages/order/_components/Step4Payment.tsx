@@ -52,13 +52,13 @@ function Step4Payment() {
                   Account Number:
                 </span>
                 <p className="text-foreground font-mono bg-muted px-2 py-1 rounded">
-                  1234567890123456
+                  0310167281820501
                 </p>
               </div>
               <div className="space-y-1">
                 <span className="font-medium text-muted-foreground">IBAN:</span>
                 <p className="text-foreground font-mono bg-muted px-2 py-1 rounded">
-                  JO94JISB1234567890123456
+                  JO71UBSI1200000310167281820501
                 </p>
               </div>
               <div className="space-y-1">
@@ -66,14 +66,14 @@ function Step4Payment() {
                   Swift Code:
                 </span>
                 <p className="text-foreground font-mono bg-muted px-2 py-1 rounded">
-                  JISBJOAM
+                  UBSIJOAX
                 </p>
               </div>
               <div className="space-y-1">
                 <span className="font-medium text-muted-foreground">
-                  Branch:
+                  Currency:
                 </span>
-                <p className="text-foreground">Amman Main Branch</p>
+                <p className="text-foreground">JOD</p>
               </div>
             </div>
             <div className="bg-muted/50 border border-border rounded-lg p-3">
